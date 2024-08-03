@@ -12,14 +12,14 @@ const Hero = () => {
     <div>
       <div className="text-6xl font-medium">
         <span>
-          The Indian Cryptocurrency
+          The crypto of tomorrow, 
         </span>
         <span className="text-blue-500 pl-4"> 
-         Revolution
+         today
         </span>
         </div>
         <div className="flex justify-center pt-4 text-2xl text-slate-500">
-            Create a frictionless wallet from India with just a Google Account.
+            Create a frictionless wallet with just a Google Account.
         </div>
         <div className="flex justify-center pt-2 text-2xl text-slate-500">
             Convert your INR into Cryptocurrency

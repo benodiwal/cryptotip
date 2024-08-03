@@ -9,7 +9,7 @@ const Header = () => {
 
   return (
     <div className="flex justify-between py-2 px-4 border-b">
-      <div className="text-xl font-bold flex flex-col justify-center">Cryptotip</div>
+      <div className="text-xl font-bold flex flex-col justify-center text-blue-600">Cryptotip</div>
       <div>
         {
            session.data?.user ? <Button onClick={() => signOut()}>Logout</Button> : <Button onClick={() => signIn()}>Signin</Button>        

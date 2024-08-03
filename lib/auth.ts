@@ -44,7 +44,7 @@ export const authConfig = {
                         username: email,
                         name: profile?.name,
                         profilePicture: profile?.picture,
-                        sub: account.providerAccountId
+                        sub: account.providerAccountId,
                     }   
                 });
                 return true;

@@ -1,5 +1,6 @@
 'use client';
 
+import ProfileCard from "@/components/dashboard/ProfileCard";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -22,7 +23,7 @@ const Dashboard = () => {
     
     return (
     <div>
-      Dashboard      
+      <ProfileCard session={session}/>     
     </div>
   )
 }
