@@ -8,8 +8,8 @@ import TabButton from "./TabButton";
 type ProfileCardProps = {
     session: any
 };
-
 type Tab = "tokens" | "swap";
+
 const tabs: { id: Tab; name: string }[] = [
     { id: "tokens", name: "Tokens" },
     { id: "swap", name: "Swap" },

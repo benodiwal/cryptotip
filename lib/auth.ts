@@ -1,6 +1,7 @@
 import Google from "next-auth/providers/google";
 import { session } from "@/types/session";
 import prisma from "@/db";
+import { Keypair } from "@solana/web3.js";
 
 export const authConfig = {
     secret: process.env.NEXTAUTH_SECRET ?? "",
@@ -39,13 +40,29 @@ export const authConfig = {
                     }
                 });
                 if (dbUser) return true;
+
+                const keypair = Keypair.generate();
+                const publickKey = keypair.publicKey.toBase58();
+                const privateKey = keypair.secretKey;
+
                 await prisma.user.create({
                     data: {
                         username: email,
                         name: profile?.name,
                         profilePicture: profile?.picture,
                         sub: account.providerAccountId,
-                    }   
+                        solWallet: {
+                            create: {
+                                publicKey: publickKey,
+                                privateKey: privateKey.toString(),
+                            }
+                        },
+                        inrWallet: {
+                            create: {
+                                balance: 0,
+                            }
+                        }
+                    }
                 });
                 return true;
             }
