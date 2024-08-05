@@ -8,24 +8,29 @@ type Prices = {
     }
 };
 
-let LAST_UPDATED: number | null = null;
-let prices: Prices = {};
+const API_URL = 'https://price.jup.ag/v6/price?ids=SOL,USDC,USDT';
+const SOLANA_MAINNET_URL = "https://solana-mainnet.g.alchemy.com/v2/EspGgEsKtp6xdG1-P32lj9raEFUlgXNc";
 const TOKEN_PRICE_REFRESH_INTERVAL = 60 * 1000;
 
-export const connection = new Connection("https://solana-mainnet.g.alchemy.com/v2/EspGgEsKtp6xdG1-P32lj9raEFUlgXNc");
+let lastUpdated: number | null = null;
+let prices: Prices = {};
+
+export const connection = new Connection(SOLANA_MAINNET_URL);
+
 export const getSupportedTokens = async () => {
-    if (!LAST_UPDATED || new Date().getTime() - LAST_UPDATED < TOKEN_PRICE_REFRESH_INTERVAL) {
+    const now = Date.now();
+    if (!lastUpdated || now - lastUpdated >= TOKEN_PRICE_REFRESH_INTERVAL) {
         try {
-            const response = await AxiosClient.get('https://price.jup.ag/v6/price?ids=SOL,USDC,USDT');
+            const response = await AxiosClient.get(API_URL);
             prices = response.data.data;
-            LAST_UPDATED = new Date().getTime();
-        } catch (e: unknown) {
-            console.error(e);
+            lastUpdated = now;
+        } catch (error: unknown) {
+            console.error(error);
         }
     }
-    return SUPPORTED_TOKENS.map(s => ({
-        ...s,
-        price: prices[s.name].price,
+    return SUPPORTED_TOKENS.map(token => ({
+        ...token,
+        price: prices[token.name]?.price ?? 'N/A',
     }));
 }
 
