@@ -1,3 +1,4 @@
+import { Connection } from "@solana/web3.js";
 import AxiosClient from "./http";
 import { SUPPORTED_TOKENS } from "./tokens";
 
@@ -11,6 +12,7 @@ let LAST_UPDATED: number | null = null;
 let prices: Prices = {};
 const TOKEN_PRICE_REFRESH_INTERVAL = 60 * 1000;
 
+export const connection = new Connection("https://solana-mainnet.g.alchemy.com/v2/EspGgEsKtp6xdG1-P32lj9raEFUlgXNc");
 export const getSupportedTokens = async () => {
     if (!LAST_UPDATED || new Date().getTime() - LAST_UPDATED < TOKEN_PRICE_REFRESH_INTERVAL) {
         try {
@@ -20,9 +22,9 @@ export const getSupportedTokens = async () => {
         } catch (e: unknown) {
             console.error(e);
         }
-        return SUPPORTED_TOKENS.map(s => ({
-            ...s,
-            price: prices[s.name].price,
-        }));
     }
+    return SUPPORTED_TOKENS.map(s => ({
+        ...s,
+        price: prices[s.name].price,
+    }));
 }
