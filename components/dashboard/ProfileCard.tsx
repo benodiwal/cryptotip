@@ -6,7 +6,8 @@ import Tokens from "./Tokens";
 import Swap from "./Swap";
 import TabButton from "./TabButton";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import useTokens from "@/hooks/useTokens";
 
 type ProfileCardProps = {
     publicKey: string
@@ -21,6 +22,7 @@ const tabs: { id: Tab; name: string }[] = [
 const ProfileCard: FC<ProfileCardProps> = ({ publicKey }) => {
     const session = useSession();
     const router = useRouter();
+    const { tokenBalances, loading } = useTokens(publicKey);
     const [selectedTab, setSelectedTab] = useState<Tab>("tokens");
 
     if (session.status === 'loading') {
@@ -58,7 +60,7 @@ const ProfileCard: FC<ProfileCardProps> = ({ publicKey }) => {
                 }
             </div>
             <div className={`${selectedTab === "tokens" ? "visible" : "hidden"}`}>
-                <Tokens />
+                <Tokens loading={loading} publicKey={publicKey} tokenBalances={tokenBalances} />
             </div>
             <div className={`${selectedTab === "swap" ? "visible" : "hidden"}`}>
                 <Swap />

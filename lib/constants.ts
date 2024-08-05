@@ -28,3 +28,5 @@ export const getSupportedTokens = async () => {
         price: prices[s.name].price,
     }));
 }
+
+getSupportedTokens();
