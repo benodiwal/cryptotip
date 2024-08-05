@@ -1,29 +1,21 @@
-'use client';
-
 import ProfileCard from "@/components/dashboard/ProfileCard";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import getUserWallet from "../actions/getUserWallet";
 
-const Dashboard = () => {
-    const session = useSession();
-    const router = useRouter();
-
-    if (session.status === 'loading') {
-      return (
-        <div>
-          Loading ...
-        </div>
-        );
-    }
-
-    if (!session.data?.user) {
-      router.push('/');
-      return;
-    }
-    
+const Dashboard = async () => {
+  
+  const { error, userWallet } = await getUserWallet();
+  
+  if (error || !userWallet?.publicKey) {
+    return (
+      <div>
+          No solana wallet found
+      </div>
+      )
+  }
+   
     return (
     <div>
-      <ProfileCard session={session}/>     
+      <ProfileCard publicKey=""/>     
     </div>
   )
 }

@@ -1,12 +1,15 @@
+'use client';
+
 import { FC, useState } from "react"
 import Greeting from "./Greeting"
-import { Button } from "../ui/button";
 import Tokens from "./Tokens";
 import Swap from "./Swap";
 import TabButton from "./TabButton";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 type ProfileCardProps = {
-    session: any
+    publicKey: string
 };
 type Tab = "tokens" | "swap";
 
@@ -15,8 +18,24 @@ const tabs: { id: Tab; name: string }[] = [
     { id: "swap", name: "Swap" },
 ];
 
-const ProfileCard: FC<ProfileCardProps> = ({ session }) => {
+const ProfileCard: FC<ProfileCardProps> = ({ publicKey }) => {
+    const session = useSession();
+    const router = useRouter();
     const [selectedTab, setSelectedTab] = useState<Tab>("tokens");
+
+    if (session.status === 'loading') {
+      return (
+        <div>
+          Loading ...
+        </div>
+        );
+    }
+
+    if (!session.data?.user) {
+      router.push('/');
+      return;
+    }
+ 
 
   return (
     <div className="pt-8 flex justify-center">

@@ -7,7 +7,7 @@ const getUserWallet = async () => {
     if (!session?.user?.uid) {
         return {
             error: "User is not authenticated",
-            userWaller: null,
+            userWallet: null,
         };
     }
 
