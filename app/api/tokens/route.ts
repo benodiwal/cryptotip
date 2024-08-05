@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     const supportedTokens = await getSupportedTokens();
     const balances = await Promise.all(supportedTokens.map(token => getAccountBalance(token, address)));
 
-    const tokens = supportedTokens?.map((token, index) => ({
+    const tokens = supportedTokens.map((token, index) => ({
       ...token,
       balance: balances[index].toFixed(2),
       usdBalance: (balances[index] * Number(token.price)).toFixed(2),

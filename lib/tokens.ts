@@ -1,11 +1,4 @@
-export type TokenDetails = {
-    name: string;
-    mint: string;
-    native: boolean;
-    price: string;
-    image: string;
-    decimals: number;
-};
+import { TokenDetails } from "@/types/token";
 
 export const SUPPORTED_TOKENS: TokenDetails[] = [{
     name: "SOL",

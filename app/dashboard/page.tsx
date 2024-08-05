@@ -15,7 +15,7 @@ const Dashboard = async () => {
    
     return (
     <div>
-      <ProfileCard publicKey=""/>     
+      <ProfileCard publicKey={userWallet.publicKey} />     
     </div>
   )
 }
