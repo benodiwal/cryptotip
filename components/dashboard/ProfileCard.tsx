@@ -3,7 +3,7 @@
 import { FC, useState } from "react"
 import Greeting from "./Greeting"
 import Tokens from "./Tokens";
-import Swap from "./Swap";
+import { Swap } from "./Swap";
 import TabButton from "./TabButton";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -63,7 +63,7 @@ const ProfileCard: FC<ProfileCardProps> = ({ publicKey }) => {
                 <Tokens loading={loading} publicKey={publicKey} tokenBalances={tokenBalances} />
             </div>
             <div className={`${selectedTab === "swap" ? "visible" : "hidden"}`}>
-                <Swap />
+                <Swap tokenBalances={tokenBalances} publicKey={publicKey}/>
             </div>
         </div>
     </div>
