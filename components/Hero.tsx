@@ -25,9 +25,13 @@ const Hero = () => {
             Convert your INR into Cryptocurrency
         </div>
         <div className="pt-8 flex justify-center">
-            {session.data?.user ? <Button onClick={() => {
+            {session.data?.user ? <Button 
+            className="bg-blue-500 hover:bg-blue-700"
+            onClick={() => {
                 router.push("/dashboard");
-            }}>Go to Dashboard</Button> : <Button onClick={() => {
+            }}>Go to Dashboard</Button> : <Button 
+            className="bg-blue-500 hover:bg-blue-700"
+            onClick={() => {
                 signIn("google");
             }}>Login with Google</Button>}
         </div>

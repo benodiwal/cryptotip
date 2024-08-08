@@ -16,7 +16,7 @@ type TokenRowProps = {
     token: TokenWithBalance
 };
 const TokenRow: FC<TokenRowProps> = ({token}) => {
-    return <div className="flex justify-between">
+    return <div className="flex justify-between mt-[4px]">
         <div className="flex">
             <div>
                 <img src={token.image} className="h-10 w-10 rounded-full mr-2" />
